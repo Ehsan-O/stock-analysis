@@ -22,7 +22,7 @@ Yearly Return = (last closing price / first closing price) - 1
 
 We have 12 tickers, this means that our code should go through the data find the information we need for each of these tickers, perform the desired operations, and output the result. To do so an array is defined in the code to store the name of these 12 tickers:  
 
-```
+```vb
     'Initialize array of all tickers
     Dim tickers(12) As String
     
@@ -43,14 +43,14 @@ We have 12 tickers, this means that our code should go through the data find the
 
 Then we used nested loops and if statements to go through all the rows of the data sheet for each ticker in the array and pick the information we need from the cells if it belongs to that ticker and output the result in a new sheet we named "All Stocks Analysis", to make the code more flexible we deciced to take the desired year of the analysis from the user:  
 
-```
+```vb
 yearValue = InputBox("What year would you like to run the analysis on?")
 ```
 
 
-```
+```vb
     rowstart = 2
-    ' rowEnd code taken from https://stackoverflow.com/questions/18088729/row-count-where-data-exists and finds the final row in the data sheet
+    'rowEnd code taken from <https://stackoverflow.com/questions/18088729/row-count-where-data-exists> and finds the final row in the data sheet
     rowend = Cells(Rows.Count, "A").End(xlUp).Row
     
     'Loop through the tickers.
@@ -94,7 +94,7 @@ yearValue = InputBox("What year would you like to run the analysis on?")
 ```
 To evaluate the performance of the code we then added a few more lines to see how long the code takes to execute. For tha,t we used "Timer" function the code will record the timer's value once right after it takes the year from the user, assining it to a "startTime" variable and another time after it shows the result in the output sheet (after the "Next i" in the above code) and assigns it to an "endTime" variable then simply by subtracting "startTime" from "endTime" we will have the runtime of the code and we can show it in a message box:  
 
-```
+```vb
     Dim startTime As Single
     Dim endTime As Single
     
@@ -104,7 +104,7 @@ To evaluate the performance of the code we then added a few more lines to see ho
     startTime = Timer
 ```
 
-```
+```vb
     endTime = Timer
     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
 
