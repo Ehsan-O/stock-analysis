@@ -13,7 +13,7 @@ Our client wants to analyze the stock data of 12 companies in 2017 and 2018 to f
 
 We have been provided with an excel file containing the information we need for the analysis. The data is stored in two sheets on foer 2017 and another for 2018 here is what the data looks like  
 
-<img src="/other/launch-unix.PNG">  
+<img src="/scr-shots-stock/preview.pn">  
 
 
 
