@@ -140,8 +140,8 @@ At the end we formated the cells in the output sheet using the code below:
 In the images below, we can see the results of running the code for each year:  
 
 <p float="left">
-  <img src="scr-shots-stock\2017_original_b.png" width="400">
-  <img src="scr-shots-stock\2018_original_b.png" width="400">
+  <img src="scr-shots-stock\2017_original_b.png" width="500">
+  <img src="scr-shots-stock\2018_original_b.png" width="500">
 </p>
 
 ### **Refactoring the code**
@@ -207,8 +207,8 @@ After this loop we defined another loop that goes to the output sheet and places
 below you can see the results of running the refactored code for each year:
 
 <p float="left">
-  <img src="Resources\VBA_Challenge_2017.png" width="400">
-  <img src="Resources\VBA_Challenge_2018.png" width="400">
+  <img src="Resources\VBA_Challenge_2017.png" width="500">
+  <img src="Resources\VBA_Challenge_2018.png" width="500">
 </p>
 
 ### **Conclusion**
