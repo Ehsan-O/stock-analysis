@@ -14,7 +14,7 @@ Our client wants to analyze the stock data of 12 companies in 2017 and 2018 to f
 ### **VBA code**
 We have been provided with an excel file containing the information we need for the analysis. The data is stored in two sheets one for 2017 and another for 2018 here is what the data looks like  
 
-<img src="/scr-shots-stock/preview.png">  
+<img src="scr-shots-stock/preview.png" width="500">  
 
 We wrote a "VBA" code in order to analyze the data. to find how actively companies were trading stocks each year, we need to add up values for the number of stocks traded in each day (this is the value in olumn "H" of data sheets under the name: "Volume") for a particular Ticker during that year. Then to calculate yearly return for each Ticker we should identify the first closing price (at the begining of the year) and the last closing price (at the end of the year) of the stock (for each ticker) then we can calculate the yearly return using the formula below:  
 
@@ -50,7 +50,7 @@ yearValue = InputBox("What year would you like to run the analysis on?")
 
 ```vb
     rowstart = 2
-    'rowEnd code taken from <https://stackoverflow.com/questions/18088729/row-count-where-data-exists> and finds the final row in the data sheet
+    'rowEnd code taken from <a href="https://stackoverflow.com/questions/18088729/row-count-where-data-exists" stack</a> and finds the final row in the data sheet
     rowend = Cells(Rows.Count, "A").End(xlUp).Row
     
     'Loop through the tickers.
@@ -109,5 +109,69 @@ To evaluate the performance of the code we then added a few more lines to see ho
     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
 
 ```
-In the images below, we can see the result of running the cod for each year
+In the images below, we can see the results of running the cod for each year:  
 
+<p float="left">
+  <img src="scr-shots-stock/2017_original_b.png" width="300">
+  <img src="scr-shots-stock\2018_original_b.png" width="300">
+</p>
+
+### **Refactoring the code**
+After we were done with the code we decided to refator it in order to  make it run faster. to make that happen, we have to change the code to go through the whole data in the sheet just one time instead of once for each ticker (wich would be 12 times in our case).And within that loop we need to grab and store the relevant data we need for our analysis as code passes each row in the data so we would be able to go to the output sheet and show the result just once. with the aim of doing so we defined 3 more arrays to stor the data for ticker's volume, firs closing price and last closing price of the tickers wich are respectivedly: "tickerVolumes", "tickerStartingPrices" and "tickerEndingPrices", we also defined a counter variable "tickerIndex" to refer to the index of the elements in the arrays:
+
+```vb
+    'Create a ticker Index
+    Dim tickerIndex As Integer
+    
+    'Create three output arrays
+    Dim tickerVolumes(12) As Long
+    Dim tickerStartingPrices(12) As Single
+    Dim tickerEndingPrices(12) As Single
+```
+Then we initialized the array tickerVolumes" by setting the value of all of the elements inside it to zero:
+
+```vb
+    'Create a for loop to initialize the tickerVolumes to zero.
+    For tickerIndex = 0 To 11
+        tickerVolumes(tickerIndex) = 0
+    Next tickerIndex
+```
+
+To go through the data just once we removed the first loop and in order to go to the next index in the array we used the counter variable "tickerIndex" and added 1 to it each time it gets to the end of one ticker data.Just remember we could do that because the data was sorted alphabetically just like how we put the data in "tickers" array.this way when in the data sheet we gets to the end of one ticker the next one automatically matches the next element in the array.  
+
+Before entering the loop that goes through te data we need to reset the value of the counter variable to zero as its going to be equal to 11 at the end of the loop above. here is the code:
+
+```vb
+    'set the tickerIndex equal to zero
+    tickerIndex = 0
+    
+    'Loop over all the rows in the spreadsheet.
+        For i = 2 To RowCount
+                ticker = tickers(tickerIndex)
+        'Increase volume for current ticker
+                tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+
+        
+        'Check if the current row is the first row with the selected tickerIndex.
+        
+        
+            If Cells(i, 1).Value = ticker And Cells(i - 1, 1).Value <> ticker Then
+                tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+            End If
+                
+       
+        
+        'check if the current row is the last row with the selected ticker
+         'If the next rowÕs ticker doesnÕt match, increase the tickerIndex.
+        
+              If Cells(i, 1).Value = ticker And Cells(i + 1, 1).Value <> ticker Then
+                tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+                
+                'Increase the tickerIndex.
+                tickerIndex = tickerIndex + 1
+            End If
+            
+    
+    Next i
+```
+After this loop we defined another loop that goes to the output sheet and places the results where we want to
