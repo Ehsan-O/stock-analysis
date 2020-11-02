@@ -6,7 +6,7 @@ in this project we are helping a client to perform analysis on some stock data
 
 
 ### **Purpose**
-Our client wants to analyze the stock data of 12 companies in 2017 and 2018 to find how actively each company's stock was traded in these to years and to calculate yearly return of each companys stock  
+Our client wants to analyze the stock data of 12 companies in 2017 and 2018 to find how actively each company's stock was traded in these to years and to calculate yearly return of each company,s stock  
 
 
 ## **Results**  
@@ -16,7 +16,7 @@ We have been provided with an excel file containing the information we need for 
 
 <img src="scr-shots-stock/preview.png" width="500">  
 
-We wrote a "VBA" code in order to analyze the data. to find how actively companies were trading stocks each year, we need to add up values for the number of stocks traded in each day (this is the value in olumn "H" of data sheets under the name: "Volume") for a particular Ticker during that year. Then to calculate yearly return for each Ticker we should identify the first closing price (at the begining of the year) and the last closing price (at the end of the year) of the stock (for each ticker) then we can calculate the yearly return using the formula below:  
+We wrote a "VBA" code in order to analyze the data. to find how actively companies were trading stocks each year, we need to add up values for the number of stocks traded in each day (this is the value in column "H" of data sheets under the name: "Volume") for a particular Ticker during that year. Then to calculate yearly return for each Ticker we should identify the first closing price (at the beginning of the year) and the last closing price (at the end of the year) of the stock (for each ticker) then we can calculate the yearly return using the formula below:  
 
 Yearly Return = (last closing price / first closing price) - 1  
 
@@ -92,7 +92,7 @@ yearValue = InputBox("What year would you like to run the analysis on?")
         
     Next i
 ```
-To evaluate the performance of the code we then added a few more lines to see how long the code takes to execute. For tha,t we used "Timer" function the code will record the timer's value once right after it takes the year from the user, assining it to a "startTime" variable and another time after it shows the result in the output sheet (after the "Next i" in the above code) and assigns it to an "endTime" variable then simply by subtracting "startTime" from "endTime" we will have the runtime of the code and we can show it in a message box:  
+To evaluate the performance of the code we then added a few more lines to see how long the code takes to execute. For that we used "Timer" function the code will record the timer's value once right after it takes the year from the user, assigning it to a "startTime" variable and another time after it shows the result in the output sheet (after the "Next i" in the above code) and assigns it to an "endTime" variable then simply by subtracting "startTime" from "endTime" we will have the runtime of the code and we can show it in a message box:  
 
 ```vb
     Dim startTime As Single
@@ -137,15 +137,15 @@ At the end we formated the cells in the output sheet using the code below:
         
     Next i
 ```
-In the images below, we can see the results of running the cod for each year:  
+In the images below, we can see the results of running the code for each year:  
 
 <p float="left">
-  <img src="scr-shots-stock\2017_original_both.png" width="400">
-  <img src="scr-shots-stock\2018_original_both.png" width="400">
+  <img src="scr-shots-stock\2017_original_b.png" width="400">
+  <img src="scr-shots-stock\2018_original_b.png" width="400">
 </p>
 
 ### **Refactoring the code**
-After we were done with the code we decided to refator it in order to  make it run faster. to make that happen, we have to change the code to go through the whole data in the sheet just one time instead of once for each ticker (wich would be 12 times in our case).And within that loop we need to grab and store the relevant data we need for our analysis as code passes each row in the data so we would be able to go to the output sheet and show the result just once. with the aim of doing so we defined 3 more arrays to stor the data for ticker's volume, firs closing price and last closing price of the tickers wich are respectivedly: "tickerVolumes", "tickerStartingPrices" and "tickerEndingPrices", we also defined a counter variable "tickerIndex" to refer to the index of the elements in the arrays:
+After we were done with the code we decided to refactor it in order to  make it run faster. to make that happen, we have to change the code to go through the whole data in the sheet just one time instead of once for each ticker (wich would be 12 times in our case).And within that loop we need to grab and store the relevant data we need for our analysis as code passes each row in the data so we would be able to go to the output sheet and show the result just once. with the aim of doing so we defined 3 more arrays to store the data for ticker's volume, firs closing price and last closing price of the tickers wich are respectivedly: "tickerVolumes", "tickerStartingPrices" and "tickerEndingPrices", we also defined a counter variable "tickerIndex" to refer to the index of the elements in the arrays:
 
 ```vb
     'Create a ticker Index
@@ -165,7 +165,7 @@ Then we initialized the array tickerVolumes" by setting the value of all of the 
     Next tickerIndex
 ```
 
-To go through the data just once we removed the first loop and in order to go to the next index in the array we used the counter variable "tickerIndex" and added 1 to it each time it gets to the end of one ticker data.Just remember we could do that because the data was sorted alphabetically just like how we put the data in "tickers" array.this way when in the data sheet we gets to the end of one ticker the next one automatically matches the next element in the array.  
+To go through the data just once we removed the first loop and in order to go to the next index in the array we used the counter variable "tickerIndex" and added 1 to it each time it gets to the end of one ticker data. Just remember we could do that because the data was sorted alphabetically just like how we put the data in "tickers" array.this way when in the data sheet we gets to the end of one ticker the next one automatically matches the next element in the array.  
 
 Before entering the loop that goes through te data we need to reset the value of the counter variable to zero as its going to be equal to 11 at the end of the loop above. here is the code:
 
@@ -204,9 +204,26 @@ Before entering the loop that goes through te data we need to reset the value of
 ```
 After this loop we defined another loop that goes to the output sheet and places the results where we need them to be.
 
-below you can see the result of running the refactored code for each year:
+below you can see the results of running the refactored code for each year:
 
 <p float="left">
   <img src="Resources\VBA_Challenge_2017.png" width="400">
   <img src="Resources\VBA_Challenge_2018.png" width="400">
 </p>
+
+### **Conclusion**
+- lets go deeper and compare the results of both codes. as you can see the results of the analysis are exactly the same in both codes. but when it comes to the runtime refactored code is much faster than our original code. As you can see in the images the runtime of the refactored code is under 0.3 seconds but the original code ran in about 2 seconds almost seven times slower.  
+
+- According to yearly return for each ticker it is clear that most of the ticker's stocks were beneficial in 2017 but in 2018 only two of them remained profitable
+
+- From these two there is a significant increase (fom 5.5% to 84%) in the yearly return of RUN's stock and the number of its traded stocks were doubled.
+
+- Although the yearly return for the ENPH's stock decreased during 2018 it still has the good value 81.9% and the number of traded stocks tripled for this ticker
+
+- As a result "ENPH" and "RUN" can be good choices for investment.
+
+## **summary**  
+
+- Refactoring a code can make it more understandable and sometimes more flexible, we can add more functionality to the code, it can prevent bugs and errors when refactoring a code containing long and complex methods and making it simpler .On the other hand to refactor a code sometimes you may need financial resources to buy that code and it can be more expensive than building the code from the scratch. Sometimes refactoring a code and make it more complex may results in more bugs.
+
+- In our analysis refactoring the original code made it simpler and much faster but as we said if the data was not sorted in the way it was it would not work. Our original code is more flexible and we can run it either for sorted or unsorted data. But it needs to go through the data and between the sheets multiple time. In writing such a code it's easy to miss something and get an error message
