@@ -140,8 +140,8 @@ At the end we formated the cells in the output sheet using the code below:
 In the images below, we can see the results of running the cod for each year:  
 
 <p float="left">
-  <img src="scr-shots-stock\2017_original_b.png" width="300">
-  <img src="scr-shots-stock/2018_original_b.png" width="300">
+  <img src="scr-shots-stock\2017_original_both.png" width="400">
+  <img src="scr-shots-stock\2018_original_both.png" width="400">
 </p>
 
 ### **Refactoring the code**
@@ -202,4 +202,11 @@ Before entering the loop that goes through te data we need to reset the value of
     
     Next i
 ```
-After this loop we defined another loop that goes to the output sheet and places the results where we want to
+After this loop we defined another loop that goes to the output sheet and places the results where we need them to be.
+
+below you can see the result of running the refactored code for each year:
+
+<p float="left">
+  <img src="Resources\VBA_Challenge_2017.png" width="400">
+  <img src="Resources\VBA_Challenge_2018.png" width="400">
+</p>
