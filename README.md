@@ -50,7 +50,7 @@ yearValue = InputBox("What year would you like to run the analysis on?")
 
 ```vb
     rowstart = 2
-    'rowEnd code taken from <a href="https://stackoverflow.com/questions/18088729/row-count-where-data-exists" stack</a> and finds the final row in the data sheet
+    'rowEnd code taken from https://stackoverflow.com/questions/18088729/row-count-where-data-exists and finds the final row in the data sheet
     rowend = Cells(Rows.Count, "A").End(xlUp).Row
     
     'Loop through the tickers.
@@ -107,13 +107,41 @@ To evaluate the performance of the code we then added a few more lines to see ho
 ```vb
     endTime = Timer
     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
+```
+At the end we formated the cells in the output sheet using the code below:
 
+```vb
+    'Formatting
+    Worksheets("All Stocks Analysis").Activate
+    Range("A3:C3").Font.FontStyle = "Bold"
+    Range("A3:C3").Borders(xlEdgeBottom).LineStyle = xlContinuous
+    Range("B4:B15").NumberFormat = "#,##0"
+    Range("C4:C15").NumberFormat = "0.0%"
+    Columns("B").AutoFit
+
+    'color the cell in green for positive values and red for negative values
+    dataRowStart = 4
+    dataRowEnd = 15
+
+    For i = dataRowStart To dataRowEnd
+        
+        If Cells(i, 3) > 0 Then
+            
+            Cells(i, 3).Interior.Color = vbGreen
+            
+        Else
+        
+            Cells(i, 3).Interior.Color = vbRed
+            
+        End If
+        
+    Next i
 ```
 In the images below, we can see the results of running the cod for each year:  
 
 <p float="left">
   <img src="scr-shots-stock/2017_original_b.png" width="300">
-  <img src="scr-shots-stock\2018_original_b.png" width="300">
+  <img src="scr-shots-stock/2018_original_b.png" width="300">
 </p>
 
 ### **Refactoring the code**
