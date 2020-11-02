@@ -140,7 +140,7 @@ At the end we formated the cells in the output sheet using the code below:
 In the images below, we can see the results of running the cod for each year:  
 
 <p float="left">
-  <img src="scr-shots-stock/2017_original_b.png" width="300">
+  <img src="scr-shots-stock\2017_original_b.png" width="300">
   <img src="scr-shots-stock/2018_original_b.png" width="300">
 </p>
 
